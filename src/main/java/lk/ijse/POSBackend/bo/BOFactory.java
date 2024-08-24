@@ -1,6 +1,7 @@
 package lk.ijse.POSBackend.bo;
 
 import lk.ijse.POSBackend.bo.custom.impl.CustomerBOImpl;
+import lk.ijse.POSBackend.bo.custom.impl.ProductBOImpl;
 
 public class BOFactory {
     private static BOFactory boFactory;
@@ -11,13 +12,15 @@ public class BOFactory {
     }
 
     public enum BOTypes {
-        CUSTOMERS,ITEMS,ORDERS
+        CUSTOMERS,PRODUCTS,ORDERS
     }
 
     public SuperBO getBO(BOTypes boType) {
         switch (boType) {
             case CUSTOMERS:
                 return new CustomerBOImpl();
+            case PRODUCTS:
+                return new ProductBOImpl();
             default: return null;
         }
     }
