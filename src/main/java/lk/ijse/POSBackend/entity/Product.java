@@ -13,7 +13,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 
 public class Product {
-    int id;
+    String id;
     String name;
     String type;
     int qty;

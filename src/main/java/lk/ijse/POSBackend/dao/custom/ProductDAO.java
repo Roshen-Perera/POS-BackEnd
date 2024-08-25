@@ -12,5 +12,5 @@ import java.sql.Connection;
 public interface ProductDAO extends SuperDAO {
     public boolean saveProduct(Product product, Connection connection);
 
-    public boolean deleteProduct(int id, Connection connection);
+    public boolean deleteProduct(String id, Connection connection);
 }

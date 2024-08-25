@@ -8,7 +8,7 @@ import java.sql.Connection;
 public interface CustomerBO extends SuperBO {
     boolean saveCustomer(CustomerDTO customerDTO, Connection connection);
 
-    boolean deleteCustomer(int id, Connection connection);
+    boolean deleteCustomer(String id, Connection connection);
 
     boolean updateCustomer(CustomerDTO customerDTO, Connection connection);
 }

@@ -16,7 +16,7 @@ public class CustomerBOImpl implements CustomerBO {
     }
 
     @Override
-    public boolean deleteCustomer(int id, Connection connection) {
+    public boolean deleteCustomer(String id, Connection connection) {
         return customerDAO.deleteCustomer(id, connection);
     }
 

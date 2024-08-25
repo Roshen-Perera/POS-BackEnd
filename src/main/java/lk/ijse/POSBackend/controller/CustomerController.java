@@ -56,9 +56,11 @@ public class CustomerController extends HttpServlet{
             boolean isSaved = customerBO.saveCustomer(customerDTO, connection);
             if (isSaved){
                 logger.info("Customer saved");
+                writer.println("Customer saved");
                 resp.setStatus(HttpServletResponse.SC_CREATED);
             }else{
                 logger.info("Customer not saved");
+                writer.println("Customer not saved");
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
 
@@ -80,9 +82,11 @@ public class CustomerController extends HttpServlet{
             var customerDTO = jsonb.fromJson(req.getReader(), CustomerDTO.class);
             if(customerBO.updateCustomer(customerDTO, connection)){
                 logger.info("Customer updated");
+                writer.println("Customer updated");
                 resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
             }else {
                 logger.info("Customer not updated");
+                writer.println("Customer not updated");
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
         } catch (JsonException e) {

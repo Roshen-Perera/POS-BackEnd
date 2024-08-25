@@ -1,3 +1,7 @@
+/*
+ * Copyright © 2024. Roshen Perera
+ */
+
 package lk.ijse.POSBackend.dao;
 
 import lk.ijse.POSBackend.dao.custom.impl.CustomerDAOImpl;

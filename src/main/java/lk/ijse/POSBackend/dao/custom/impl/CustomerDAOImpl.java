@@ -15,7 +15,7 @@ public class CustomerDAOImpl implements CustomerDAO{
             ps.setString(1, customerId);
             var resultSet = ps.executeQuery();
             while (resultSet.next()) {
-                customer.setId(resultSet.getInt("id"));
+                customer.setId(resultSet.getString("id"));
                 customer.setName(resultSet.getString("name"));
                 customer.setAddress(resultSet.getString("address"));
                 customer.setPhone(resultSet.getString("phone"));
@@ -31,7 +31,7 @@ public class CustomerDAOImpl implements CustomerDAO{
 
         try {
             var ps = connection.prepareStatement("INSERT INTO customer (id,name,address,phone) VALUES (?,?,?,?)");
-            ps.setInt(1, customer.getId());
+            ps.setString(1, customer.getId());
             ps.setString(2, customer.getName());
             ps.setString(3, customer.getAddress());
             ps.setString(4, customer.getPhone());
@@ -42,10 +42,10 @@ public class CustomerDAOImpl implements CustomerDAO{
     }
 
     @Override
-    public boolean deleteCustomer(int customerId, Connection connection) {
+    public boolean deleteCustomer(String customerId, Connection connection) {
         try {
             var ps = connection.prepareStatement("DELETE FROM customer WHERE id = ?");
-            ps.setInt(1, customerId);
+            ps.setString(1, customerId);
             return ps.executeUpdate() != 0;
         }catch (SQLException e){
             throw new RuntimeException();
@@ -60,7 +60,7 @@ public class CustomerDAOImpl implements CustomerDAO{
             ps.setString(1, customer.getName());
             ps.setString(2, customer.getAddress());
             ps.setString(3, customer.getPhone());
-            ps.setInt(4, customer.getId());
+            ps.setString(4, customer.getId());
             return ps.executeUpdate() != 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);
