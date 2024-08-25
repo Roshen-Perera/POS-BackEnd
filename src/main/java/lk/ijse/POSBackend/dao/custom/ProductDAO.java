@@ -13,4 +13,6 @@ public interface ProductDAO extends SuperDAO {
     public boolean saveProduct(Product product, Connection connection);
 
     public boolean deleteProduct(String id, Connection connection);
+
+    public boolean updateProduct(Product product, Connection connection);
 }

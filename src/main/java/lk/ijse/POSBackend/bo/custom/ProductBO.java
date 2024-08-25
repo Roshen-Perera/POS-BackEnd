@@ -11,5 +11,6 @@ import java.sql.Connection;
 
 public interface ProductBO extends SuperBO {
     public boolean saveProduct(ProductDTO productDTO, Connection connection);
-    public boolean deleteProduct(int id, Connection connection);
+    public boolean deleteProduct(String id, Connection connection);
+    public boolean updateProduct(ProductDTO productDTO, Connection connection);
 }

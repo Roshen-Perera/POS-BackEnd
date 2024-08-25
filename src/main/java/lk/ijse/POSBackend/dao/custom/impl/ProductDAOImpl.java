@@ -35,4 +35,18 @@ public class ProductDAOImpl implements ProductDAO{
             throw new RuntimeException(e);
         }
     }
+
+    public boolean updateProduct(Product product, Connection connection) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("UPDATE product SET name = ?, type = ?, qty = ?, price = ? WHERE id = ?");
+            ps.setString(1, product.getName());
+            ps.setString(2, product.getType());
+            ps.setInt(3, product.getQty());
+            ps.setDouble(4, product.getPrice());
+            ps.setString(5, product.getId());
+            return ps.executeUpdate() != 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
 }

@@ -79,7 +79,7 @@ public class ProductController extends HttpServlet {
         var id = req.getParameter("id");
         logger.info("Deleting Product");
         try (var writer = resp.getWriter()){
-            if(productBO.deleteProduct(Integer.parseInt(id), connection)){
+            if(productBO.deleteProduct(id, connection)){
                 resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
                 logger.info("Product deleted");
             }else {
@@ -88,7 +88,7 @@ public class ProductController extends HttpServlet {
             }
         } catch (Exception e) {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
-            throw new RuntimeException(e);
+            System.out.println(e.getMessage());
         }
     }
 
@@ -104,7 +104,7 @@ public class ProductController extends HttpServlet {
             Jsonb jsonb = JsonbBuilder.create();
             var productDTO = jsonb.fromJson(req.getReader(), ProductDTO.class);
             logger.info(productDTO.toString());
-            boolean isSaved = productBO.saveProduct(productDTO, connection);
+            boolean isSaved = productBO.updateProduct(productDTO, connection);
             if (isSaved){
                 logger.info("Product updated");
                 writer.println("Product updated");

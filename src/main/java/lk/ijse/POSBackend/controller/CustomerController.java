@@ -114,11 +114,13 @@ public class CustomerController extends HttpServlet{
         var stuId = req.getParameter("id");
         logger.info("Deleting Customer");
         try (var writer = resp.getWriter()){
-            if(customerBO.deleteCustomer(Integer.parseInt(stuId), connection)){
+            if(customerBO.deleteCustomer(stuId, connection)){
                 resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                writer.println("Customer deleted");
                 logger.info("Customer deleted");
             }else {
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                writer.println("Customer not deleted");
                 logger.info("customer not deleted");
             }
         } catch (Exception e) {

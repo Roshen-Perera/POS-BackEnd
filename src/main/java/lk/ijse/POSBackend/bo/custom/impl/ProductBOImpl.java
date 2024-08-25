@@ -17,8 +17,11 @@ public class ProductBOImpl implements ProductBO {
     public boolean saveProduct(ProductDTO productDTO, Connection connection) {
         return productDAO.saveProduct(new Product(productDTO.getId(), productDTO.getName(), productDTO.getType(), productDTO.getQty(), productDTO.getPrice()), connection);
     }
-
-    public boolean deleteProduct(int id, Connection connection) {
+    public boolean deleteProduct(String id, Connection connection) {
         return productDAO.deleteProduct(id, connection);
+    }
+
+    public boolean updateProduct(ProductDTO productDTO, Connection connection) {
+        return productDAO.updateProduct(new Product(productDTO.getId(), productDTO.getName(), productDTO.getType(), productDTO.getQty(), productDTO.getPrice()), connection);
     }
 }
