@@ -24,6 +24,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/product")
 public class ProductController extends HttpServlet {
@@ -123,15 +124,31 @@ public class ProductController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         var id = req.getParameter("id");
-        logger.info("Getting Product");
-        try (var writer = resp.getWriter()){
-            var product = productBO.getProduct(id, connection);
-            System.out.println(product);
-            resp.setContentType("application/json");
-            Jsonb jsonb = JsonbBuilder.create();
-            jsonb.toJson(product,writer);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        if(req.getParameter("id") != null){
+            logger.info("Getting Product");
+            try (var writer = resp.getWriter()){
+                var product = productBO.getProduct(id, connection);
+                System.out.println(product);
+                resp.setContentType("application/json");
+                Jsonb jsonb = JsonbBuilder.create();
+                jsonb.toJson(product,writer);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            try (var writer = resp.getWriter()) {
+                List<ProductDTO> productDTOList = productBO.getAllProducts(connection);
+                if (productDTOList != null) {
+                    resp.setContentType("application/json");
+                    Jsonb jsonb = JsonbBuilder.create();
+                    jsonb.toJson(productDTOList, writer);
+                } else {
+                    writer.write("No products found");
+                    resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

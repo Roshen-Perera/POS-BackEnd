@@ -6,13 +6,32 @@ package lk.ijse.POSBackend.dao.custom.impl;
 
 import lk.ijse.POSBackend.dao.custom.ProductDAO;
 import lk.ijse.POSBackend.entity.Product;
-import lk.ijse.POSBackend.entity.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class ProductDAOImpl implements ProductDAO{
+
+    public List<Product> getAll(Connection connection) throws SQLException {
+        var ps = connection.prepareStatement("SELECT * FROM product");
+        var resultSet = ps.executeQuery();
+        List<Product> customerList = new ArrayList<>();
+        while (resultSet.next()){
+            Product products = new Product(
+                    resultSet.getString("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("type"),
+                    resultSet.getInt("qty"),
+                    resultSet.getDouble("price")
+            );
+            customerList.add(products);
+        }
+        return customerList;
+    }
+
 
     public Product getProduct(String productId, Connection connection) throws SQLException {
         var product = new Product();

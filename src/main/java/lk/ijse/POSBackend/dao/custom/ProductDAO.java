@@ -9,8 +9,10 @@ import lk.ijse.POSBackend.entity.Product;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 public interface ProductDAO extends SuperDAO {
+    public List<Product> getAll(Connection connection) throws SQLException;
 
     public Product getProduct(String productId, Connection connection) throws SQLException;
 
