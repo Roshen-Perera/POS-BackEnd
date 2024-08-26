@@ -29,7 +29,7 @@ import java.sql.SQLException;
 public class ProductController extends HttpServlet {
     static Logger logger =  LoggerFactory.getLogger(ProductController.class);
     ProductBO productBO = (ProductBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PRODUCTS);
-    // ProductDAO customerDAO = (ProductDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMERS);
+    // ProductDAO productDAO = (ProductDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMERS);
 
     Connection connection;
 
@@ -125,7 +125,13 @@ public class ProductController extends HttpServlet {
         var id = req.getParameter("id");
         logger.info("Getting Product");
         try (var writer = resp.getWriter()){
-
+            var product = productBO.getProduct(id, connection);
+            System.out.println(product);
+            resp.setContentType("application/json");
+            Jsonb jsonb = JsonbBuilder.create();
+            jsonb.toJson(product,writer);
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
         }
     }
 }

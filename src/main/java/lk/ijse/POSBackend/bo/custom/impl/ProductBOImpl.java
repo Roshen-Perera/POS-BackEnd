@@ -11,9 +11,16 @@ import lk.ijse.POSBackend.dto.ProductDTO;
 import lk.ijse.POSBackend.entity.Product;
 
 import java.sql.Connection;
+import java.sql.SQLException;
 
 public class ProductBOImpl implements ProductBO {
     ProductDAO productDAO = (ProductDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PRODUCTS);
+
+    public ProductDTO getProduct(String id, Connection connection) throws SQLException {
+        Product product = productDAO.getProduct(id, connection);
+        return new ProductDTO(product.getId(),product.getName(),product.getType(), product.getQty(), product.getPrice());
+    }
+
     public boolean saveProduct(ProductDTO productDTO, Connection connection) {
         return productDAO.saveProduct(new Product(productDTO.getId(), productDTO.getName(), productDTO.getType(), productDTO.getQty(), productDTO.getPrice()), connection);
     }

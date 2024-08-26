@@ -6,12 +6,33 @@ package lk.ijse.POSBackend.dao.custom.impl;
 
 import lk.ijse.POSBackend.dao.custom.ProductDAO;
 import lk.ijse.POSBackend.entity.Product;
+import lk.ijse.POSBackend.entity.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 public class ProductDAOImpl implements ProductDAO{
+
+    public Product getProduct(String productId, Connection connection) throws SQLException {
+        var product = new Product();
+        try {
+            var ps = connection.prepareStatement("SELECT * FROM product WHERE id = ?");
+            ps.setString(1, productId);
+            var resultSet = ps.executeQuery();
+            while (resultSet.next()) {
+                product.setId(resultSet.getString("id"));
+                product.setName(resultSet.getString("name"));
+                product.setType(resultSet.getString("type"));
+                product.setQty(resultSet.getInt("qty"));
+                product.setPrice(resultSet.getDouble("price"));
+            }
+        }catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return product;
+    }
+
     public boolean saveProduct(Product product, Connection connection) {
         try {
             var ps = connection.prepareStatement("INSERT INTO product (id,name,type,qty,price) VALUES (?,?,?,?,?)");
