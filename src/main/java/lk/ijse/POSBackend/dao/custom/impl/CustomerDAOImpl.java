@@ -5,8 +5,27 @@ import lk.ijse.POSBackend.entity.Customer;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerDAOImpl implements CustomerDAO{
+
+    public List<Customer> getAll(Connection connection) throws SQLException {
+        var ps = connection.prepareStatement("SELECT * FROM customer");
+        var resultSet = ps.executeQuery();
+        List<Customer> customerList = new ArrayList<>();
+        while (resultSet.next()){
+            Customer customers = new Customer(
+                    resultSet.getString("id"),
+                    resultSet.getString("name"),
+                    resultSet.getString("address"),
+                    resultSet.getString("phone")
+            );
+            customerList.add(customers);
+        }
+        return customerList;
+    }
+
     @Override
     public Customer getCustomer(String customerId, Connection connection) throws SQLException {
         var customer = new Customer();

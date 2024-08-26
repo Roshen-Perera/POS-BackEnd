@@ -3,7 +3,6 @@ package lk.ijse.POSBackend.controller;
 import jakarta.json.JsonException;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
-import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,6 +19,7 @@ import javax.sql.DataSource;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.List;
 
 @WebServlet(urlPatterns = "/customer")
 public class CustomerController extends HttpServlet{
@@ -39,6 +39,40 @@ public class CustomerController extends HttpServlet{
         }catch (NamingException | SQLException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        if (req.getParameter("id") != null)  {
+            var customerId = req.getParameter("id");
+            try (var writer = resp.getWriter()){
+                var customer = customerBO.getCustomer(customerId, connection);
+                System.out.println(customer);
+                resp.setContentType("application/json");
+                Jsonb jsonb = JsonbBuilder.create();
+                jsonb.toJson(customer,writer);
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
+        }else {
+            try (var writer = resp.getWriter()) {
+                List<CustomerDTO> customerDTOList = customerBO.getAllCustomers(connection);
+                if (customerDTOList != null) {
+                    resp.setContentType("application/json");
+                    Jsonb jsonb = JsonbBuilder.create();
+                    jsonb.toJson(customerDTOList, writer);
+                } else {
+                    writer.write("No customers found");
+                    resp.setStatus(HttpServletResponse.SC_NOT_FOUND);
+                }
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        }
+    }
+
+    public void getAllCustomers(HttpServletRequest req, HttpServletResponse resp){
+
     }
 
     @Override
@@ -92,20 +126,6 @@ public class CustomerController extends HttpServlet{
         } catch (JsonException e) {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             e.printStackTrace();
-        }
-    }
-
-    @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        var customerId = req.getParameter("id");
-        try (var writer = resp.getWriter()){
-            var customer = customerBO.getCustomer(customerId, connection);
-            System.out.println(customer);
-            resp.setContentType("application/json");
-            Jsonb jsonb = JsonbBuilder.create();
-            jsonb.toJson(customer,writer);
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
         }
     }
 

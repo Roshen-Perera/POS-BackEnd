@@ -8,9 +8,20 @@ import lk.ijse.POSBackend.entity.Customer;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 
 public class CustomerBOImpl implements CustomerBO {
     CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMERS);
+
+    public List<CustomerDTO> getAllCustomers(Connection connection) throws SQLException {
+        List<CustomerDTO> customerDTOS = new ArrayList<>();
+        List<Customer> customers = customerDAO.getAll(connection);
+        for (Customer customer : customers) {
+            customerDTOS.add(new CustomerDTO(customer.getId(), customer.getName(), customer.getAddress(), customer.getPhone()));
+        }
+        return customerDTOS;
+    }
 
     public CustomerDTO getCustomer(String id, Connection connection) throws SQLException {
         Customer customer = customerDAO.getCustomer(id, connection);
