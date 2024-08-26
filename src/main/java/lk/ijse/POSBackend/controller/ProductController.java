@@ -119,4 +119,13 @@ public class ProductController extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        var id = req.getParameter("id");
+        logger.info("Getting Product");
+        try (var writer = resp.getWriter()){
+
+        }
+    }
 }

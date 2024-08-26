@@ -42,7 +42,7 @@ public class CustomerController extends HttpServlet{
     }
 
     @Override
-    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if(!req.getContentType().toLowerCase().startsWith("application/json")|| req.getContentType() == null){
             //send error
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
@@ -72,7 +72,7 @@ public class CustomerController extends HttpServlet{
 
 
     @Override
-    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doPut(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         if(!req.getContentType().toLowerCase().startsWith("application/json")|| req.getContentType() == null){
             resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
         }
@@ -96,21 +96,21 @@ public class CustomerController extends HttpServlet{
     }
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         var customerId = req.getParameter("id");
-        /*try (var writer = resp.getWriter()){
-            var customer = customerDao.getCustomer(customerId);
+        try (var writer = resp.getWriter()){
+            var customer = customerBO.getCustomer(customerId, connection);
             System.out.println(customer);
             resp.setContentType("application/json");
             Jsonb jsonb = JsonbBuilder.create();
             jsonb.toJson(customer,writer);
         } catch (SQLException e) {
             throw new RuntimeException(e);
-        }*/
+        }
     }
 
     @Override
-    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
         var stuId = req.getParameter("id");
         logger.info("Deleting Customer");
         try (var writer = resp.getWriter()){
