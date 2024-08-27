@@ -89,4 +89,16 @@ public class ProductDAOImpl implements ProductDAO{
             throw new RuntimeException(e);
         }
     }
+
+    public boolean updateQty(Product product, Connection connection) throws SQLException {
+        try {
+            var ps = connection.prepareStatement("UPDATE product SET qty = qty - ? WHERE id = ?");
+            ps.setInt(1, product.getQty());
+            ps.setString(2, product.getId());
+            return ps.executeUpdate() != 0;
+        } catch (SQLException e) {
+            throw new SQLException(e);
+        }
+    }
+
 }

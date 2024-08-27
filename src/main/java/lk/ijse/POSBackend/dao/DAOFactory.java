@@ -5,6 +5,7 @@
 package lk.ijse.POSBackend.dao;
 
 import lk.ijse.POSBackend.dao.custom.impl.CustomerDAOImpl;
+import lk.ijse.POSBackend.dao.custom.impl.OrderDAOImpl;
 import lk.ijse.POSBackend.dao.custom.impl.ProductDAOImpl;
 
 public class DAOFactory {
@@ -25,6 +26,8 @@ public class DAOFactory {
                 return new CustomerDAOImpl();
             case PRODUCTS:
                 return new ProductDAOImpl();
+            case ORDERS:
+                return new OrderDAOImpl();
             default:
                 return null;
         }

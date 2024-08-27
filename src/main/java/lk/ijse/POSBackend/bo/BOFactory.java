@@ -1,6 +1,7 @@
 package lk.ijse.POSBackend.bo;
 
 import lk.ijse.POSBackend.bo.custom.impl.CustomerBOImpl;
+import lk.ijse.POSBackend.bo.custom.impl.OrderBOImpl;
 import lk.ijse.POSBackend.bo.custom.impl.ProductBOImpl;
 
 public class BOFactory {
@@ -21,6 +22,8 @@ public class BOFactory {
                 return new CustomerBOImpl();
             case PRODUCTS:
                 return new ProductBOImpl();
+            case ORDERS:
+                return new OrderBOImpl();
             default: return null;
         }
     }

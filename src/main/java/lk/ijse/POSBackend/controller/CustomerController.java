@@ -71,9 +71,6 @@ public class CustomerController extends HttpServlet{
         }
     }
 
-    public void getAllCustomers(HttpServletRequest req, HttpServletResponse resp){
-
-    }
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {

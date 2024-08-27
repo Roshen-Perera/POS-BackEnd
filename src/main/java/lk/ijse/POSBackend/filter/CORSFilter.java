@@ -1,7 +1,3 @@
-/*
- * Copyright © 2024. Roshen Perera
- */
-
 package lk.ijse.POSBackend.filter;
 
 import jakarta.servlet.FilterChain;
