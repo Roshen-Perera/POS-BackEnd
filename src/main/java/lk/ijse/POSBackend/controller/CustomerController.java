@@ -25,7 +25,6 @@ import java.util.List;
 public class CustomerController extends HttpServlet{
     static Logger logger =  LoggerFactory.getLogger(CustomerController.class);
     CustomerBO customerBO = (CustomerBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.CUSTOMERS);
-    // CustomerDAO customerDAO = (CustomerDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMERS);
 
     Connection connection;
 

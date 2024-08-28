@@ -4,9 +4,7 @@
 
 package lk.ijse.POSBackend.dao;
 
-import lk.ijse.POSBackend.dao.custom.impl.CustomerDAOImpl;
-import lk.ijse.POSBackend.dao.custom.impl.OrderDAOImpl;
-import lk.ijse.POSBackend.dao.custom.impl.ProductDAOImpl;
+import lk.ijse.POSBackend.dao.custom.impl.*;
 
 public class DAOFactory {
     private static DAOFactory daoFactory;
@@ -17,11 +15,15 @@ public class DAOFactory {
     }
 
     public enum DAOTypes {
-        CUSTOMERS, PRODUCTS, ORDERS
+        REGISTRATION, LOGIN, CUSTOMERS, PRODUCTS, ORDERS
     }
 
     public SuperDAO getDAO(DAOTypes daoType) {
         switch (daoType) {
+            case REGISTRATION:
+                return new RegistrationDAOImpl();
+                case LOGIN:
+                    return new LoginDAOImpl();
             case CUSTOMERS:
                 return new CustomerDAOImpl();
             case PRODUCTS:
