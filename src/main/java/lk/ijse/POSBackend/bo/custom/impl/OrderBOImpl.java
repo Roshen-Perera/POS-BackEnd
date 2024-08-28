@@ -46,4 +46,8 @@ public class OrderBOImpl implements OrderBO {
             throw new RuntimeException(e);
         }
     }
+
+    public boolean deleteOrder(String orderId, Connection connection){
+        return orderDAO.deleteOrder(orderId, connection);
+    }
 }

@@ -10,4 +10,5 @@ import java.util.List;
 public interface OrderDAO extends SuperDAO {
     public List<Order> getAll(Connection connection) throws SQLException;
     public boolean saveOrder(Order order, Connection connection);
+    public boolean deleteOrder(String orderId, Connection connection);
 }

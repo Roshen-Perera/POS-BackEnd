@@ -2,7 +2,6 @@ package lk.ijse.POSBackend.dao.custom.impl;
 
 import lk.ijse.POSBackend.dao.custom.OrderDAO;
 import lk.ijse.POSBackend.entity.Order;
-import lk.ijse.POSBackend.entity.Product;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,7 +16,7 @@ public class OrderDAOImpl implements OrderDAO {
         var resultSet = ps.executeQuery();
         List<Order> customerList = new ArrayList<>();
         while (resultSet.next()){
-            Order products = new Order(
+            Order order = new Order(
                     resultSet.getString("orderId"),
                     resultSet.getString("customerId"),
                     resultSet.getString("customerName"),
@@ -28,7 +27,7 @@ public class OrderDAOImpl implements OrderDAO {
                     resultSet.getDouble("productPrice"),
                     resultSet.getDouble("productTotal")
             );
-            customerList.add(products);
+            customerList.add(order);
         }
         return customerList;
     }
@@ -46,6 +45,16 @@ public class OrderDAOImpl implements OrderDAO {
             ps.setInt(7, order.getProductQTYNeeded());
             ps.setDouble(8, order.getProductPrice());
             ps.setDouble(9, order.getProductTotal());
+            return ps.executeUpdate() != 0;
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public boolean deleteOrder(String orderId, Connection connection) {
+        try {
+            PreparedStatement ps = connection.prepareStatement("DELETE FROM orders WHERE orderId = ?");
+            ps.setString(1, orderId);
             return ps.executeUpdate() != 0;
         } catch (SQLException e) {
             throw new RuntimeException(e);

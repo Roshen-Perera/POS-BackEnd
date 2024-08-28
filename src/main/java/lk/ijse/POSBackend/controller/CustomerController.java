@@ -94,7 +94,6 @@ public class CustomerController extends HttpServlet{
                 writer.println("Customer not saved");
                 resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
             }
-
         } catch (JsonException e) {
             resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
             throw new RuntimeException(e);
@@ -128,10 +127,10 @@ public class CustomerController extends HttpServlet{
 
     @Override
     protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        var stuId = req.getParameter("id");
+        var id = req.getParameter("id");
         logger.info("Deleting Customer");
         try (var writer = resp.getWriter()){
-            if(customerBO.deleteCustomer(stuId, connection)){
+            if(customerBO.deleteCustomer(id, connection)){
                 resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
                 writer.println("Customer deleted");
                 logger.info("Customer deleted");

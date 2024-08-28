@@ -89,4 +89,23 @@ public class OrderController extends HttpServlet {
             throw new RuntimeException(e);
         }
     }
+
+    protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws IOException {
+        var id = req.getParameter("id");
+        logger.info("Deleting Order");
+        try (var writer = resp.getWriter()){
+            if(orderBO.deleteOrder(id, connection)){
+                resp.setStatus(HttpServletResponse.SC_NO_CONTENT);
+                writer.println("Order deleted");
+                logger.info("Order deleted");
+            }else {
+                resp.sendError(HttpServletResponse.SC_BAD_REQUEST);
+                writer.println("Order not deleted");
+                logger.info("customer not deleted");
+            }
+        } catch (Exception e) {
+            resp.sendError(HttpServletResponse.SC_INTERNAL_SERVER_ERROR);
+            throw new RuntimeException(e);
+        }
+    }
 }
