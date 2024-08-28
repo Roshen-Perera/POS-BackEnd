@@ -18,12 +18,12 @@ public class OrderBOImpl implements OrderBO {
     ProductDAO productDAO = (ProductDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.PRODUCTS);
 
     public List<OrderDTO> getAllOrders(Connection connection) throws SQLException {
-        List<OrderDTO> productDTOS = new ArrayList<>();
+        List<OrderDTO> orderDTOS = new ArrayList<>();
         List<Order> orders = orderDAO.getAll(connection);
         for (Order order : orders) {
-            productDTOS.add(new OrderDTO(order.getOrderId(), order.getCustomerId(), order.getCustomerName(), order.getProductId(), order.getProductName(), order.getProductType(), order.getProductQTYNeeded(), order.getProductPrice(), order.getProductTotal()));
+            orderDTOS.add(new OrderDTO(order.getOrderId(), order.getCustomerId(), order.getCustomerName(), order.getProductId(), order.getProductName(), order.getProductType(), order.getProductQTYNeeded(), order.getProductPrice(), order.getProductTotal()));
         }
-        return productDTOS;
+        return orderDTOS;
     }
 
     public boolean saveOrder(OrderDTO order, Connection connection){

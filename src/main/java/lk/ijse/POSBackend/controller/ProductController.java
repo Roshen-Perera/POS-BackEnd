@@ -30,7 +30,6 @@ import java.util.List;
 public class ProductController extends HttpServlet {
     static Logger logger =  LoggerFactory.getLogger(ProductController.class);
     ProductBO productBO = (ProductBO) BOFactory.getBoFactory().getBO(BOFactory.BOTypes.PRODUCTS);
-    // ProductDAO productDAO = (ProductDAO) DAOFactory.getDaoFactory().getDAO(DAOFactory.DAOTypes.CUSTOMERS);
 
     Connection connection;
 

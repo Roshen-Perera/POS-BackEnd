@@ -14,7 +14,7 @@ public class OrderDAOImpl implements OrderDAO {
     public List<Order> getAll(Connection connection) throws SQLException {
         var ps = connection.prepareStatement("SELECT * FROM orders");
         var resultSet = ps.executeQuery();
-        List<Order> customerList = new ArrayList<>();
+        List<Order> orderList = new ArrayList<>();
         while (resultSet.next()){
             Order order = new Order(
                     resultSet.getString("orderId"),
@@ -27,9 +27,9 @@ public class OrderDAOImpl implements OrderDAO {
                     resultSet.getDouble("productPrice"),
                     resultSet.getDouble("productTotal")
             );
-            customerList.add(order);
+            orderList.add(order);
         }
-        return customerList;
+        return orderList;
     }
 
     @Override

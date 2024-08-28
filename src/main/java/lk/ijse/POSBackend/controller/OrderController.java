@@ -4,7 +4,6 @@ import jakarta.json.JsonException;
 import jakarta.json.bind.Jsonb;
 import jakarta.json.bind.JsonbBuilder;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebFilter;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -12,7 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.POSBackend.bo.BOFactory;
 import lk.ijse.POSBackend.bo.custom.OrderBO;
 import lk.ijse.POSBackend.dto.OrderDTO;
-import lk.ijse.POSBackend.dto.ProductDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

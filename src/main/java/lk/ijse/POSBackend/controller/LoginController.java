@@ -1,15 +1,12 @@
 package lk.ijse.POSBackend.controller;
 
 import jakarta.json.JsonException;
-import jakarta.json.bind.Jsonb;
-import jakarta.json.bind.JsonbBuilder;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lk.ijse.POSBackend.bo.BOFactory;
 import lk.ijse.POSBackend.bo.custom.LoginBO;
-import lk.ijse.POSBackend.dto.UserDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

@@ -18,7 +18,7 @@ public class ProductDAOImpl implements ProductDAO{
     public List<Product> getAll(Connection connection) throws SQLException {
         var ps = connection.prepareStatement("SELECT * FROM product");
         var resultSet = ps.executeQuery();
-        List<Product> customerList = new ArrayList<>();
+        List<Product> productList = new ArrayList<>();
         while (resultSet.next()){
             Product products = new Product(
                     resultSet.getString("id"),
@@ -27,9 +27,9 @@ public class ProductDAOImpl implements ProductDAO{
                     resultSet.getInt("qty"),
                     resultSet.getDouble("price")
             );
-            customerList.add(products);
+            productList.add(products);
         }
-        return customerList;
+        return productList;
     }
 
 
